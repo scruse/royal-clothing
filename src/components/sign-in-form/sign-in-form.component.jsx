@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -35,7 +35,7 @@ const SignInForm = () => {
         email,
         password
       );
-      console.log(response);
+
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -47,16 +47,13 @@ const SignInForm = () => {
           break;
         default:
           console.log(error);
-      }
-      if (error.code === "auth/wrong-password") {
-        alert("Wrong password");
+          break;
       }
     }
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleChange = (event) => {
