@@ -5,7 +5,6 @@ import Button from "../ui/button.component";
 import { CartContext } from "../../contexts/cart.context";
 
 const ProductCard = (product) => {
-  console.log(product);
   const { name, price, imageUrl } = product.products;
 
   const { addItemToCart } = useContext(CartContext);
