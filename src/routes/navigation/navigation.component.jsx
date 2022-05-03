@@ -1,46 +1,47 @@
 import { Fragment, useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import "./navigation.styles.scss";
+
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CartIcon from "../../components/ui/cart-icon.component";
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
 import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
-import {isCartOpen} from "../../contexts/cart.context";
+
+import {NavigationContainer, NavLinks, NavLink, LogoContainer} from "./navigation.styles";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
   const {isCartOpen } = useContext(CartContext);
   return (
     <Fragment>
-      <div className="navigation">
+      <NavigationContainer>
         <div>
-          <Link to="/" className="logo-container">
+          <LogoContainer to="/">
             <CrownLogo className="logo" />
-          </Link>
+          </LogoContainer>
         </div>
-        <div className="nav-links-container">
+        <NavLinks>
           <Link to="/shop" className="nav-link">
             Shop
           </Link>
-          <Link to="/contact" className="nav-link">
+          <NavLink to="/contact" className="nav-link">
             Contact
-          </Link>
+          </NavLink>
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as='span' className="nav-link" onClick={signOutUser}>
               SIGN OUT
-            </span>
+            </NavLink>
           ) : (
-            <Link to="/auth" className="nav-link">
+            <NavLink to="/auth" className="nav-link">
               Sign In
-            </Link>
+            </NavLink>
           )}
           <CartIcon />
-        </div>
+        </NavLinks>
         {isCartOpen && <CartDropdown />}
  
-      </div>
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );

@@ -8,7 +8,7 @@ import FormInput from "../form-input/form-input.component";
 
 import "./sign-up-form.styles.scss";
 
-import Button from "../ui/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../ui/button.component";
 
 const defaultFormfields = {
   displayName: "",
@@ -95,7 +95,7 @@ const SignUpForm = () => {
           value={confirmPassword}
           required
         />
-        <Button buttonType="default" type="submit">
+        <Button buttonType={BUTTON_TYPE_CLASSES.default} type="submit">
           Sign Up
         </Button>
       </form>
